@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -x
+
+SOURCE_DIR=$1
+
+STM32_FAMILY=L4
+STM32_CHIP_TYPE=432xx
+STM32_FLASH_SIZE=256K
+STM32_RAM_SIZE=64K
+
+#TOOLCHAIN_FILE=/home/user/stm32/stm32-cmake/cmake/gcc_stm32l4.cmake
+TOOLCHAIN_FILE=${SOURCE_DIR}/stm32-cmake/cmake/gcc_stm32.cmake
+
+cmake \
+    -DSTM32_FAMILY=${STM32_FAMILY} \
+    -DSTM32_CHIP_TYPE=${STM32_CHIP_TYPE} \
+    -DSTM32_FLASH_SIZE=${STM32_FLASH_SIZE} \
+    -DSTM32_RAM_SIZE=${STM32_RAM_SIZE} \
+    -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE} \
+    -DCMAKE_BUILD_TYPE=Debug \
+    -DTOOLCHAIN_PREFIX=/home/user/stm32/gnuarmemb/current \
+    -DCMAKE_MODULE_PATH=stm32-cmake \
+    -DSTM32Cube_DIR=/home/user/stm32/stm32cubel4/STM32Cube_FW_L4_V1.13.0 \
+    ${SOURCE_DIR}
